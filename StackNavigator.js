@@ -61,6 +61,7 @@ const StackNavigator = () => {
                     options={{
                         tabBarLabel: 'Anasayfa',
                         headerShown: false,
+
                         tabBarIcon: ({ focused }) =>
                             focused ? (
                                 <Entypo name='home' size={24} color='#003580' />
@@ -77,7 +78,7 @@ const StackNavigator = () => {
                     name='Profile'
                     component={ProfileScreen}
                     options={{
-                        tabBarLabel: 'Profile',
+                        tabBarLabel: 'Profil',
                         headerShown: false,
                         tabBarIcon: ({ focused }) =>
                             focused ? (

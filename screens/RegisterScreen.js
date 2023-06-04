@@ -82,6 +82,7 @@ const RegisterScreen = () => {
                     email: user,
                     username: userName,
                     role: 'user',
+                    pic: '',
                 });
             }
         );
