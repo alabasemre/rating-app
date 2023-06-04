@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Image, StyleSheet, Text, View } from 'react-native';
+import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { Entypo, Ionicons, AntDesign } from '@expo/vector-icons';
 
 import { auth, db, firebase } from '../firebase';
 import { doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import * as ImagePicker from 'expo-image-picker';
-import useNavigation from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 import Colors from '../contants/colors';
+import CustomButton from '../components/CustomButton';
 
 const ProfileScreen = () => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [profilePic, setProfile] = useState('');
     const [role, setRole] = useState('user');
-
     const [image, setImage] = useState(null);
+
+    const navigator = useNavigation();
 
     const currentUser = auth.currentUser.uid;
 
@@ -124,6 +126,25 @@ const ProfileScreen = () => {
                 <Text style={styles.infoHeader}>E-Posta Adresi</Text>
                 <Text style={styles.infoText}>{email}</Text>
             </View>
+            {role === 'admin' ? (
+                <>
+                    <CustomButton
+                        text={'Ürün Listesi'}
+                        onPress={() => {
+                            navigator.navigate('AdminProduct');
+                        }}
+                    />
+
+                    <CustomButton
+                        text={'Ürün Ekle'}
+                        onPress={() => {
+                            navigator.navigate('AdminProductAdd');
+                        }}
+                    />
+                </>
+            ) : (
+                ''
+            )}
         </View>
     );
 };

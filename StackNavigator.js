@@ -9,6 +9,8 @@ import { Entypo, Ionicons, AntDesign } from '@expo/vector-icons';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
+import AdminProductScreen from './screens/AdminProductScreen';
+import AdminProductAddScreen from './screens/AdminProductAddScreen';
 
 import { auth } from './firebase';
 import ProfileScreen from './screens/ProfileScreen';
@@ -116,6 +118,16 @@ const StackNavigator = () => {
                 <Stack.Screen
                     name='Main'
                     component={BottomTabs}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='AdminProductAdd'
+                    component={AdminProductAddScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='AdminProduct'
+                    component={AdminProductScreen}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>
