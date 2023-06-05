@@ -74,11 +74,16 @@ const RatedScreen = () => {
                                 url={productData.item.url}
                                 id={productData.item.id}
                                 userRated={isRated}
-                                fetchProd={fetchProducts}
+                                fetchProducts={fetchProducts}
                             />
                         );
                     }}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => {
+                        return item.productName
+                            .split(' ')
+                            .join('')
+                            .toLowerCase();
+                    }}
                 />
             )}
         </SafeAreaView>

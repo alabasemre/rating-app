@@ -78,9 +78,9 @@ const ProfileScreen = () => {
             },
             () => {
                 snapshot.snapshot.ref.getDownloadURL().then((url) => {
-                    setProfile(url);
-                    // console.log('basarili:', url);
+                    console.log(url);
                     updateDb();
+                    setProfile(url);
                     blob.close();
                     return url;
                 });
