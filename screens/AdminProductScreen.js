@@ -27,7 +27,11 @@ const AdminProductScreen = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetchProducts();
+        const fetchProd = async () => {
+            await fetchProducts();
+        };
+
+        fetchProd();
     }, []);
 
     const fetchProducts = async () => {

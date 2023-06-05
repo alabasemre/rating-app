@@ -4,20 +4,14 @@ import {
     StyleSheet,
     SafeAreaView,
     RefreshControl,
-    View,
-    Image,
-    Text,
-    Pressable,
     FlatList,
-    Button,
 } from 'react-native';
 import { auth, db } from '../firebase';
 
-import { Ionicons } from '@expo/vector-icons';
 import Colors from '../contants/colors';
 import ProductRatingCard from '../components/ProductRatingCard';
 
-const HomeScreen = () => {
+const RatedScreen = () => {
     const [products, setProducts] = useState([]);
 
     const [refreshing, setRefreshing] = React.useState(false);
@@ -82,7 +76,7 @@ const HomeScreen = () => {
     );
 };
 
-export default HomeScreen;
+export default RatedScreen;
 
 const styles = StyleSheet.create({
     productContainer: {

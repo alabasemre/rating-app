@@ -1,7 +1,6 @@
 import { useLayoutEffect, useState } from 'react';
 import {
     Alert,
-    FlatList,
     Image,
     KeyboardAvoidingView,
     SafeAreaView,

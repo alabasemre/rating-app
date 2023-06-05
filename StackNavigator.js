@@ -56,7 +56,11 @@ const StackNavigator = () => {
         }, []);
 
         return (
-            <Tab.Navigator>
+            <Tab.Navigator
+                screenOptions={{
+                    tabBarLabelStyle: { fontSize: 12, fontWeight: 700 },
+                }}
+            >
                 <Tab.Screen
                     name='Home'
                     component={HomeScreen}

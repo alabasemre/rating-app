@@ -9,7 +9,9 @@ const ProductCardAdmin = ({ onPress, title, review, score, url }) => {
             <View style={styles.productInfo}>
                 <Text style={styles.productName}>{title}</Text>
                 <Text style={styles.ratingInfo}>{review} Değerlendirme</Text>
-                <Text style={styles.ratingInfo}>{score} Puan</Text>
+                <Text style={styles.ratingInfo}>
+                    {(score / review).toFixed(2)} Puan
+                </Text>
             </View>
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 <Ionicons
