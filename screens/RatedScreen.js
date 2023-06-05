@@ -5,6 +5,7 @@ import {
     SafeAreaView,
     RefreshControl,
     FlatList,
+    Text,
 } from 'react-native';
 import { auth, db } from '../firebase';
 
@@ -28,11 +29,19 @@ const RatedScreen = () => {
 
     const fetchProducts = async () => {
         setRefreshing(true);
-        const querySnapshot = await getDocs(collection(db, 'products'));
+        setProducts([]);
+        const userRef = doc(db, 'users', user);
+        const docsSnap = (await getDoc(userRef)).data();
+
         const items = [];
-        querySnapshot.forEach((doc) => {
-            items.push({ ...doc.data(), id: doc.id });
-        });
+
+        for (const item in docsSnap.rated) {
+            const productRef = doc(db, 'products', item);
+            const productSnap = (await getDoc(productRef)).data();
+
+            items.push(productSnap);
+        }
+
         setProducts(items);
         setRefreshing(false);
     };

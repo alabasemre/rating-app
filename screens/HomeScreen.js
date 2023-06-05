@@ -34,6 +34,7 @@ const HomeScreen = () => {
 
     const fetchProducts = async () => {
         setRefreshing(true);
+        setProducts([]);
         const querySnapshot = await getDocs(collection(db, 'products'));
         const items = [];
         querySnapshot.forEach((doc) => {

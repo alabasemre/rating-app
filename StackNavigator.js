@@ -14,6 +14,7 @@ import AdminProductAddScreen from './screens/AdminProductAddScreen';
 
 import { auth } from './firebase';
 import ProfileScreen from './screens/ProfileScreen';
+import RatedScreen from './screens/RatedScreen';
 
 const StackNavigator = () => {
     const Tab = createBottomTabNavigator();
@@ -74,6 +75,25 @@ const StackNavigator = () => {
                             ) : (
                                 <AntDesign
                                     name='home'
+                                    size={24}
+                                    color='black'
+                                />
+                            ),
+                    }}
+                />
+                <Tab.Screen
+                    name='Rated'
+                    component={RatedScreen}
+                    options={{
+                        tabBarLabel: 'Notladım',
+                        headerShown: false,
+
+                        tabBarIcon: ({ focused }) =>
+                            focused ? (
+                                <Entypo name='book' size={24} color='#003580' />
+                            ) : (
+                                <AntDesign
+                                    name='book'
                                     size={24}
                                     color='black'
                                 />

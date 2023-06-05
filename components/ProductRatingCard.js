@@ -70,7 +70,8 @@ const ProductRatingCard = ({ title, review, score, url, id, userRated }) => {
                 <Text style={styles.productName}>{title}</Text>
                 <Text style={styles.ratingInfo}>{newReview} Değerlendirme</Text>
                 <Text style={styles.ratingInfo}>
-                    {(newScore / newReview).toFixed(2)} Puan
+                    {newReview === 0 ? 0 : (newScore / newReview).toFixed(2)}{' '}
+                    Puan
                 </Text>
                 <View
                     style={{
