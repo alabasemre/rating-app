@@ -72,7 +72,10 @@ const RatedScreen = () => {
                                 review={productData.item.review}
                                 score={productData.item.score}
                                 url={productData.item.url}
-                                id={productData.item.id}
+                                id={productData.item.productName
+                                    .split(' ')
+                                    .join('')
+                                    .toLowerCase()}
                                 userRated={isRated}
                                 fetchProducts={fetchProducts}
                             />
