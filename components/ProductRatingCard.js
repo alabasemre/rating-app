@@ -20,13 +20,24 @@ import { auth, db } from '../firebase';
 
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../contants/colors';
+import { useNavigation } from '@react-navigation/native';
 
 const rates = [1, 2, 3, 4, 5];
 
-const ProductRatingCard = ({ title, review, score, url, id, userRated }) => {
+const ProductRatingCard = ({
+    title,
+    review,
+    score,
+    url,
+    id,
+    userRated,
+    fetchProducts,
+}) => {
     const [newRate, setNewRate] = useState(0);
     const [newScore, setNewScore] = useState(0);
     const [newReview, setNewReview] = useState(0);
+
+    const navigation = useNavigation();
 
     const user = auth.currentUser.uid;
 
@@ -61,51 +72,65 @@ const ProductRatingCard = ({ title, review, score, url, id, userRated }) => {
         setNewRate(rate);
         setNewScore(score + incScore);
         setNewReview(review + incReview);
+        fetchProducts();
     };
 
     return (
-        <View style={styles.productContainer}>
-            <Image source={{ uri: url }} style={styles.productImg} />
-            <View style={styles.productInfo}>
-                <Text style={styles.productName}>{title}</Text>
-                <Text style={styles.ratingInfo}>{newReview} Değerlendirme</Text>
-                <Text style={styles.ratingInfo}>
-                    {newReview === 0 ? 0 : (newScore / newReview).toFixed(2)}{' '}
-                    Puan
-                </Text>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        gap: 5,
-                        marginTop: 10,
-                    }}
-                >
-                    {rates.map((id) => {
-                        return (
-                            <Pressable
-                                key={id}
-                                onPress={() => {
-                                    setRate(id);
-                                }}
-                            >
-                                <View
-                                    style={[
-                                        styles.btnScore,
-                                        newRate === id
-                                            ? { backgroundColor: 'orange' }
-                                            : '',
-                                    ]}
+        <Pressable
+            onPress={() => {
+                navigation.navigate('ProductDetail', {
+                    id: id,
+                    userRated: userRated,
+                });
+            }}
+        >
+            <View style={styles.productContainer}>
+                <Image source={{ uri: url }} style={styles.productImg} />
+                <View style={styles.productInfo}>
+                    <Text style={styles.productName}>{title}</Text>
+                    <Text style={styles.ratingInfo}>
+                        {newReview} Değerlendirme
+                    </Text>
+                    <Text style={styles.ratingInfo}>
+                        {newReview === 0
+                            ? 0
+                            : (newScore / newReview).toFixed(2)}{' '}
+                        Puan
+                    </Text>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            gap: 5,
+                            marginTop: 10,
+                        }}
+                    >
+                        {rates.map((id) => {
+                            return (
+                                <Pressable
+                                    key={id}
+                                    onPress={() => {
+                                        setRate(id);
+                                    }}
                                 >
-                                    <Text style={styles.btnScoreText}>
-                                        {id}
-                                    </Text>
-                                </View>
-                            </Pressable>
-                        );
-                    })}
+                                    <View
+                                        style={[
+                                            styles.btnScore,
+                                            newRate === id
+                                                ? { backgroundColor: 'orange' }
+                                                : '',
+                                        ]}
+                                    >
+                                        <Text style={styles.btnScoreText}>
+                                            {id}
+                                        </Text>
+                                    </View>
+                                </Pressable>
+                            );
+                        })}
+                    </View>
                 </View>
             </View>
-        </View>
+        </Pressable>
     );
 };
 
@@ -124,8 +149,8 @@ const styles = StyleSheet.create({
         borderRadius: 9,
     },
     productImg: {
-        height: 95,
-        width: 95,
+        height: 100,
+        width: 100,
         borderRadius: 7,
     },
     productInfo: {

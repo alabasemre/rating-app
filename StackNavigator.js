@@ -15,6 +15,7 @@ import AdminProductAddScreen from './screens/AdminProductAddScreen';
 import { auth } from './firebase';
 import ProfileScreen from './screens/ProfileScreen';
 import RatedScreen from './screens/RatedScreen';
+import ProductDetailScreen from './screens/ProductDetailScreen';
 
 const StackNavigator = () => {
     const Tab = createBottomTabNavigator();
@@ -152,6 +153,11 @@ const StackNavigator = () => {
                 <Stack.Screen
                     name='AdminProduct'
                     component={AdminProductScreen}
+                    options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                    name='ProductDetail'
+                    component={ProductDetailScreen}
                     options={{ headerShown: false }}
                 />
             </Stack.Navigator>

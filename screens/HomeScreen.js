@@ -72,7 +72,7 @@ const HomeScreen = () => {
                                 url={productData.item.url}
                                 id={productData.item.id}
                                 userRated={isRated}
-                                fetchProd={fetchProducts}
+                                fetchProducts={fetchProducts}
                             />
                         );
                     }}
