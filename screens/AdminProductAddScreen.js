@@ -2,16 +2,21 @@ import { useLayoutEffect, useState } from 'react';
 import {
     Alert,
     Image,
+    Keyboard,
     KeyboardAvoidingView,
+    Platform,
     SafeAreaView,
     StyleSheet,
     Text,
     TextInput,
+    TouchableWithoutFeedback,
+    TouchableWithoutFeedbackBase,
     View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Colors from '../contants/colors';
+import { useHeaderHeight } from '@react-navigation/elements';
 import CustomButton from '../components/CustomButton';
 import * as ImagePicker from 'expo-image-picker';
 
@@ -30,6 +35,7 @@ const dummyProducts = [
 
 const AdminProductAddScreen = () => {
     const [productName, setProductName] = useState('');
+    const [productInfo, setProductInfo] = useState('');
     const [image, setImage] = useState(null);
 
     const navigation = useNavigation();
@@ -132,6 +138,7 @@ const AdminProductAddScreen = () => {
             doc(db, 'products', productName.split(' ').join('').toLowerCase()),
             {
                 productName: productName,
+                productInfo: productInfo,
                 url: url,
                 review: 0,
                 score: 0,
@@ -149,56 +156,102 @@ const AdminProductAddScreen = () => {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView>
-                <Text style={{ fontSize: 32, fontWeight: 700, marginTop: 20 }}>
-                    Ürün Ekleme Paneli
-                </Text>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
+            style={{ flex: 1 }}
+        >
+            <SafeAreaView style={styles.container}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={{ justifyContent: 'flex-end' }}>
+                        <Text
+                            style={{
+                                fontSize: 32,
+                                fontWeight: 700,
+                                marginTop: 20,
+                            }}
+                        >
+                            Ürün Ekleme Paneli
+                        </Text>
+                        <View style={styles.imgContainer}>
+                            <Image
+                                source={
+                                    image !== null
+                                        ? {
+                                              uri: image,
+                                          }
+                                        : require('../images/dummy/dummy_product.png')
+                                }
+                                style={{
+                                    height: 200,
+                                    width: 200,
+                                    borderRadius: 50,
+                                }}
+                            ></Image>
 
-                <View style={styles.imgContainer}>
-                    <Image
-                        source={
-                            image !== null
-                                ? {
-                                      uri: image,
-                                  }
-                                : require('../images/dummy/dummy_product.png')
-                        }
-                        style={{ height: 200, width: 200, borderRadius: 50 }}
-                    ></Image>
+                            <Ionicons
+                                name='camera-sharp'
+                                size={40}
+                                color={Colors.primary}
+                                style={{ marginTop: 12 }}
+                                onPress={pickImage}
+                            />
+                        </View>
 
-                    <Ionicons
-                        name='camera-sharp'
-                        size={40}
-                        color={Colors.primary}
-                        style={{ marginTop: 12 }}
-                        onPress={pickImage}
-                    />
-                </View>
+                        <View>
+                            <Text
+                                style={{
+                                    fontSize: 18,
+                                    fontWeight: '600',
+                                    color: 'gray',
+                                }}
+                            >
+                                Ürün Adı
+                            </Text>
 
-                <View>
-                    <Text
-                        style={{
-                            fontSize: 18,
-                            fontWeight: '600',
-                            color: 'gray',
-                        }}
-                    >
-                        Ürün Adı
-                    </Text>
+                            <TextInput
+                                value={productName}
+                                onChangeText={(text) => setProductName(text)}
+                                placeholder='Ürün Adı'
+                                placeholderTextColor={'black'}
+                                style={styles.textInput}
+                            />
+                        </View>
 
-                    <TextInput
-                        value={productName}
-                        onChangeText={(text) => setProductName(text)}
-                        placeholder='Ürün Adı'
-                        placeholderTextColor={'black'}
-                        style={styles.textInput}
-                    />
-                </View>
+                        <View>
+                            <Text
+                                style={{
+                                    fontSize: 18,
+                                    fontWeight: '600',
+                                    color: 'gray',
+                                }}
+                            >
+                                Ürün Açıklaması
+                            </Text>
 
-                <CustomButton text={'Ürün Ekle'} onPress={uploadImage} />
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+                            <TextInput
+                                value={productInfo}
+                                multiline={true}
+                                numberOfLines={6}
+                                onChangeText={(text) => setProductInfo(text)}
+                                style={[
+                                    styles.textInput,
+                                    {
+                                        height: 100,
+                                        borderWidth: 1,
+                                        borderRadius: 10,
+                                    },
+                                ]}
+                            />
+                        </View>
+
+                        <CustomButton
+                            text={'Ürün Ekle'}
+                            onPress={uploadImage}
+                        />
+                    </View>
+                </TouchableWithoutFeedback>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 };
 

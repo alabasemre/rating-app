@@ -92,7 +92,7 @@ const ProductRatingCard = ({ title, review, score, url, id, userRated }) => {
                                     style={[
                                         styles.btnScore,
                                         newRate === id
-                                            ? { backgroundColor: 'red' }
+                                            ? { backgroundColor: 'orange' }
                                             : '',
                                     ]}
                                 >

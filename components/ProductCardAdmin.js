@@ -10,8 +10,7 @@ const ProductCardAdmin = ({ onPress, title, review, score, url }) => {
                 <Text style={styles.productName}>{title}</Text>
                 <Text style={styles.ratingInfo}>{review} Değerlendirme</Text>
                 <Text style={styles.ratingInfo}>
-                    {review === 0 ? 0 : (score / review).toFixed(2)}
-                    Puan
+                    {review === 0 ? 0 : (score / review).toFixed(2)} Puan
                 </Text>
             </View>
             <View style={{ alignItems: 'center', justifyContent: 'center' }}>
